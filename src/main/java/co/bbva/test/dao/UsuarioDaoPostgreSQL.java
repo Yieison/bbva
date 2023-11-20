@@ -1,7 +1,8 @@
 package co.bbva.test.dao;
 
-import co.bbva.test.modelo.Usuario;
-import co.bbva.test.util.ConexionPostgreSQL;
+import co.empresa.bbva.modelo.Usuario;
+import co.empresa.bbva.util.ConexionPostgreSQL;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

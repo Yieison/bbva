@@ -1,4 +1,4 @@
-package co.bbva.test.util;
+package co.empresa.bbva.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package co.bbva.test.modelo;
+package co.empresa.bbva.modelo;
 
 import java.io.Serializable;
 

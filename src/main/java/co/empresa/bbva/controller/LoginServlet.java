@@ -1,7 +1,8 @@
-package co.bbva.test.controller;
+package co.empresa.bbva.controller;
 
 import co.bbva.test.dao.UsuarioDaoPostgreSQL;
-import co.bbva.test.modelo.Usuario;
+import co.empresa.bbva.modelo.Usuario;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,4 +28,11 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
+	
+	// Método para manejar solicitudes GET (mostrar la página de login)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Simplemente reenviar la solicitud a la página de login.jsp
+        request.getRequestDispatcher("login.jsp").forward(request, response);
+    }
 }

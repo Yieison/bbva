@@ -2,7 +2,8 @@ package co.bbva.test.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import co.bbva.test.modelo.Usuario;
+
+import co.empresa.bbva.modelo.Usuario;
 
 public interface UsuarioDao {
     void insert(Usuario usuario) throws SQLException;
