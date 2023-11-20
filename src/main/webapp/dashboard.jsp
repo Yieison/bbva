@@ -142,8 +142,7 @@ body {
 			%>
 
 			<div class="see-more-container">
-				<button class="see-more-button" onclick="loadMoreMovements()">Ver
-					más</button>
+				<button class="see-more-button" onclick="loadMoreMovements()">Ver más</button>
 			</div>
 		</div>
 		<div class="add-movement-button-container">
