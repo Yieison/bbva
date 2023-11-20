@@ -1,5 +1,6 @@
 package co.bbva.test.dao;
 
+import co.empresa.bbva.modelo.Bill;
 import co.empresa.bbva.modelo.Usuario;
 import co.empresa.bbva.util.ConexionPostgreSQL;
 
@@ -106,4 +107,28 @@ public class UsuarioDaoPostgreSQL implements UsuarioDao {
         }
         return null;
     }
+    
+    public List<Bill> selectBillsByUser(int userId) {
+        List<Bill> bills = new ArrayList<>();
+        String sql = "SELECT * FROM bill WHERE user_id = ?";
+        try (PreparedStatement statement = conexion.getCon().prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Bill bill = new Bill(
+                        resultSet.getInt("id"),
+                        resultSet.getDate("date_bill"),
+                        resultSet.getInt("user_id"),
+                        resultSet.getBigDecimal("value"),
+                        resultSet.getInt("type"),
+                        resultSet.getString("observation")
+                );
+                bills.add(bill);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bills;
+    }
+
 }
