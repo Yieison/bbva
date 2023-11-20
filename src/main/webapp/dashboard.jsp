@@ -150,7 +150,6 @@ body {
 			<button id="addMovementButton" class="add-movement-button"
 				onclick="showAddModal()">+</button>
 		</div>
-
 	</div>
 
 <%
