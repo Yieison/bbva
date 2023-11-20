@@ -8,56 +8,68 @@ import java.sql.SQLException;
 
 public class ConexionPostgreSQL {
 
-    private static ConexionPostgreSQL instance;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
+	private Connection con = null;
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/";
-    private static final String DB_NAME = "bbva";
-    private static final String DRIVER = "org.postgresql.Driver";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "root";
+	private static ConexionPostgreSQL db;
 
-    private ConexionPostgreSQL() {
-        try {
-            Class.forName(DRIVER);
-            this.connection = DriverManager.getConnection(URL + DB_NAME, USERNAME, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	private PreparedStatement preparedStatement;
 
-    public static ConexionPostgreSQL getInstance() {
-        if (instance == null) {
-            instance = new ConexionPostgreSQL();
-        }
-        return instance;
-    }
+	private static final String url = "jdbc:postgresql://localhost:5432/";
 
-    public void cerrarConexion() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	private static final String dbName = "bbva";
 
-    public ResultSet query(String sql) throws SQLException {
-        this.preparedStatement = connection.prepareStatement(sql);
-        return this.preparedStatement.executeQuery();
-    }
+	private static final String driver = "org.postgresql.Driver";
 
-    public int execute(String sql) throws SQLException {
-        this.preparedStatement = connection.prepareStatement(sql);
-        return this.preparedStatement.executeUpdate();
-    }
+	private static final String userName = "postgres";
 
-    public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return this.connection.prepareStatement(sql);
-    }
+	private static final String password = "root";
 
+	@SuppressWarnings("deprecation")
+	public ConexionPostgreSQL() {
+		try {
+			Class.forName(driver).newInstance();
+			con = (Connection) DriverManager.getConnection(url + dbName, userName, password);
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void cerrarConexion() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static ConexionPostgreSQL getConexion() {
+		if (db == null) {
+			db = new ConexionPostgreSQL();
+		}
+
+		return db;
+	}
+
+	public ResultSet query() throws SQLException {
+		ResultSet res = preparedStatement.executeQuery();
+		return res;
+	}
+
+	public int execute() throws SQLException {
+		int result = preparedStatement.executeUpdate();
+		return result;
+	}
+
+	public Connection getCon() {
+		return this.con;
+	}
+
+	public PreparedStatement setPreparedStatement(String sql) throws SQLException {
+		this.preparedStatement = con.prepareStatement(sql);
+		return this.preparedStatement;
+	}
 }
-
-	
